@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saify TT House - Premium Table Tennis Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="logo-section">
+                    <div class="tt-icon">🏓</div>
+                    <h1 class="main-title">Saify TT House</h1>
+                    <p class="subtitle">Premium Table Tennis Experience</p>
+                    <div class="owner-info">
+                        <div class="owner-card">
+                            <div class="owner-details">
+                                <h3>Owner: Saify Ahmed</h3>
+                                <p>📞 +91 98765 43210</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="welcome-message">
+                    <h2>Welcome to Our Premium Facility!</h2>
+                    <p>Book your table tennis sessions, cancel existing bookings, or manage your business with our complete booking system.</p>
+                </div>
+                
+                <div class="main-actions">
+                    <button class="btn btn--primary btn--lg action-btn" onclick="showBookingScreen()">
+                        <span class="btn-icon">📅</span>
+                        <span>BOOK NOW</span>
+                    </button>
+                    <button class="btn btn--secondary btn--lg action-btn" onclick="showCancellationScreen()">
+                        <span class="btn-icon">❌</span>
+                        <span>CANCEL BOOKING</span>
+                    </button>
+                    <button class="btn btn--outline btn--lg action-btn" onclick="showDashboardLogin()">
+                        <span class="btn-icon">📊</span>
+                        <span>DASHBOARD</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Screen -->
+    <div id="booking-screen" class="screen">
+        <div class="container">
+            <div class="screen-header">
+                <button class="btn btn--secondary back-btn" onclick="showWelcomeScreen()">
+                    ← Back to Home
+                </button>
+                <h2>Book Your Table</h2>
+            </div>
+            
+            <div class="cancellation-policy-notice">
+                <div class="policy-card">
+                    <h4>📋 Cancellation Policy</h4>
+                    <ul>
+                        <li>✅ <strong>Free cancellation</strong> up to 2 hours before booking</li>
+                        <li>🔄 <strong>50% refund</strong> for cancellations within 2 hours</li>
+                        <li>❌ <strong>No refund</strong> for no-shows</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="booking-form-container">
+                <form id="booking-form" class="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="booking-date">Select Date</label>
+                            <input type="date" id="booking-date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="booking-time">Select Time</label>
+                            <select id="booking-time" class="form-control" required>
+                                <option value="">Choose time...</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="booking-duration">Duration</label>
+                            <select id="booking-duration" class="form-control" required>
+                                <option value="">Select duration...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Table</label>
+                            <div class="table-info">
+                                <span class="table-name">Table Tennis Table</span>
+                                <span class="table-rate">₹50/hour</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="player-name">Player Name</label>
+                            <input type="text" id="player-name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="player-phone">Phone Number</label>
+                            <input type="tel" id="player-phone" class="form-control" placeholder="Enter 10-digit phone number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="payment-method">Payment Method</label>
+                        <select id="payment-method" class="form-control" required>
+                            <option value="">Select payment method...</option>
+                            <option value="cash">💵 Cash Payment</option>
+                            <option value="upi">📱 UPI Payment</option>
+                        </select>
+                    </div>
+                    
+                    <div class="booking-summary">
+                        <div class="summary-card">
+                            <h3>Booking Summary</h3>
+                            <div id="booking-details" class="booking-details"></div>
+                            <div class="total-cost">
+                                <span>Total Cost: ₹<span id="total-cost">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--lg btn--full-width">
+                        Confirm Booking
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancellation Screen -->
+    <div id="cancellation-screen" class="screen">
+        <div class="container">
+            <div class="screen-header">
+                <button class="btn btn--secondary back-btn" onclick="showWelcomeScreen()">
+                    ← Back to Home
+                </button>
+                <h2>Cancel Booking</h2>
+            </div>
+            
+            <div class="cancellation-form-container">
+                <div class="search-booking-card">
+                    <h3>🔍 Find Your Booking</h3>
+                    <div class="search-options">
+                        <div class="form-group">
+                            <label class="form-label" for="search-booking-id">Booking ID</label>
+                            <input type="text" id="search-booking-id" class="form-control" placeholder="Enter Booking ID (e.g., STT001)">
+                        </div>
+                        <div class="search-divider">OR</div>
+                        <div class="form-group">
+                            <label class="form-label" for="search-phone">Phone Number</label>
+                            <input type="tel" id="search-phone" class="form-control" placeholder="Enter registered phone number">
+                        </div>
+                        <button type="button" class="btn btn--primary btn--full-width" onclick="searchBookingForCancellation()">
+                            Search Booking
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="booking-search-results" class="booking-search-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Login Screen -->
+    <div id="dashboard-login-screen" class="screen">
+        <div class="container">
+            <div class="screen-header">
+                <button class="btn btn--secondary back-btn" onclick="showWelcomeScreen()">
+                    ← Back to Home
+                </button>
+                <h2>Owner Dashboard Login</h2>
+            </div>
+            
+            <div class="login-form-container">
+                <div class="login-card">
+                    <h3>🔐 Owner Access</h3>
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label class="form-label" for="owner-password">Password</label>
+                            <input type="password" id="owner-password" class="form-control" placeholder="Enter owner password" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">
+                            Access Dashboard
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboard-screen" class="screen">
+        <div class="container">
+            <div class="screen-header">
+                <button class="btn btn--secondary back-btn" onclick="showWelcomeScreen()">
+                    ← Logout
+                </button>
+                <h2>Owner Dashboard</h2>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="total-bookings">0</div>
+                            <div class="stat-label">Total Bookings</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="active-bookings">0</div>
+                            <div class="stat-label">Active Bookings</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">❌</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="cancelled-bookings">0</div>
+                            <div class="stat-label">Cancelled</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <div class="stat-value">₹<span id="total-revenue">0</span></div>
+                            <div class="stat-label">Net Revenue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-controls">
+                <div class="filter-controls">
+                    <select id="status-filter" class="form-control">
+                        <option value="all">All Bookings</option>
+                        <option value="active">Active Only</option>
+                        <option value="cancelled">Cancelled Only</option>
+                        <option value="completed">Completed Only</option>
+                    </select>
+                    <input type="text" id="dashboard-search" class="form-control" placeholder="Search bookings...">
+                </div>
+            </div>
+            
+            <div class="dashboard-bookings">
+                <div id="dashboard-bookings-list" class="dashboard-bookings-list">
+                    <!-- Bookings will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closePaymentModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Complete Payment</h3>
+                <button class="modal-close" onclick="closePaymentModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="cash-payment" class="payment-section">
+                    <div class="payment-icon">💵</div>
+                    <h4>Cash Payment</h4>
+                    <p>Please pay ₹<span id="cash-amount">0</span> at the facility.</p>
+                    <div class="payment-instructions">
+                        <p><strong>Instructions:</strong></p>
+                        <ul>
+                            <li>Present this booking confirmation at the facility</li>
+                            <li>Pay the amount to the staff before your session</li>
+                            <li>Keep your booking ID for reference</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="upi-payment" class="payment-section hidden">
+                    <div class="payment-icon">📱</div>
+                    <h4>UPI Payment</h4>
+                    <p>Scan the QR code to pay ₹<span id="upi-amount">0</span></p>
+                    <div class="qr-code-container">
+                        <div class="qr-code">
+                            <div class="qr-placeholder">
+                                <div class="qr-pattern"></div>
+                                <div class="qr-info">
+                                    <p><strong>saify.tt@paytm</strong></p>
+                                    <p>Saify Ahmed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="upi-instructions">
+                        <p><strong>Steps:</strong></p>
+                        <ol>
+                            <li>Open any UPI app (GPay, PhonePe, Paytm, etc.)</li>
+                            <li>Scan the QR code above</li>
+                            <li>Enter amount: ₹<span id="upi-amount-text">0</span></li>
+                            <li>Complete the payment</li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="booking-confirmation-preview" class="confirmation-preview"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--primary btn--full-width" onclick="completeBooking()">
+                    I've Completed Payment
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancellation Confirmation Modal -->
+    <div id="cancellation-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeCancellationModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Cancellation</h3>
+                <button class="modal-close" onclick="closeCancellationModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="cancellation-warning">⚠️</div>
+                <div id="cancellation-details" class="cancellation-details"></div>
+                <div class="form-group">
+                    <label class="form-label" for="cancellation-reason">Reason for Cancellation (Optional)</label>
+                    <textarea id="cancellation-reason" class="form-control" rows="3" placeholder="Please tell us why you're cancelling..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--secondary" onclick="closeCancellationModal()">Keep Booking</button>
+                <button class="btn btn--danger" onclick="confirmCancellation()">Cancel Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeSuccessModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="success-title">Success!</h3>
+                <button class="modal-close" onclick="closeSuccessModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="success-icon">✅</div>
+                <div id="success-message" class="success-message"></div>
+                <div id="success-details" class="success-details"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--primary" onclick="closeSuccessModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
